@@ -2,15 +2,18 @@
 # -*- coding: utf-8 -*-
 from soynlp.normalizer import *
 
+# Preprocess
 class Preprocess:
     def __init__(self):
         pass
     
+    # Forword
     def forword(self, str_line):
         line = only_hangle(str_line)
         line = line.replace(" ","")
         return line
     
+    # Replace
     def replace(self, word_list) :
         dic = {'넘버':'번호','경란':'강경란','경란이':'강경란','영배':'고영배','정길':'고정길',\
                '정길이':'고정길','도형':'김도형','도형이':'김도형','동윤':'김동윤',\

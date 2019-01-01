@@ -7,7 +7,6 @@ import json
 from .project2 import Sentence2Vec
 from .file import Files
 
-
 def keyboard(request):
 	
     return JsonResponse({
