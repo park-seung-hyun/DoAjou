@@ -15,7 +15,7 @@ import sqlite3
 class Sentence2Vec:
     def __init__(self):
         
-        # Pretrained Word2Vec Model
+        # Pretrained Word2Vec Model (ko.bin)
         self.load("ko.bin")
         
         # label -> For Tokenized
@@ -28,7 +28,7 @@ class Sentence2Vec:
          '연락처' : 1, '전화번호' : 1, '번호' : 0.8, '핸드폰' : 1, '휴대폰' : 1, '전화' : 0.8,'전번' : 0.5,\
          '사무실' : 1, '연구실' : 1, '랩실' : 1, '렙실' : 1, '어디':1,'학생식당':1,'기숙사식당':1,'학과사무실':1,'과사':0.8,'과사무실':1.0,'위치':0.8,'소중사':1.0,'소프트웨어중심사업단':1.0}
 
-        # Tokenizer
+        # Soynlp Tokenizer
         tokenizer = MaxScoreTokenizer(scores=scores)
         
         # Read Data
@@ -47,10 +47,12 @@ class Sentence2Vec:
         self.label_nt = label_nt
         self.files = Files()
         self.prep = Preprocess()
-        
+    
+    # Load
     def load(self, model_file):
         self.model = Word2Vec.load(model_file)
 
+    # Get_vector
     def get_vector(self, sentence):
         tokenizer = self.tokenizer
         token = tokenizer.tokenize(sentence)
@@ -86,7 +88,7 @@ class Sentence2Vec:
         h_index = 0
         for i, value in enumerate(temp2):
             if self.similarity(inp,temp2[i]) > h :
-                # h = similarity
+                # h = Cosine similarity
                 h = self.similarity(inp,temp2[i])
                 h_index = i
         if h_index > 5 and h_index < 12:
@@ -124,13 +126,12 @@ class Sentence2Vec:
         # Error Handling
         if similarity < 0.4 or len(inp) == 1 or intend == self.label_nt[12]:
             
-            # Intend existed
-            # Professor name filled
+            # Intend existed && Professor name filled
             if professor_name != "0" and files.file_exist(user_name + "_intend") == True :
                 intend = files.file_read(user_name + "_intend").replace("\n","")
                 files.file_remove(user_name + "_intend")
             
-            # Only Professor Name
+            # Only Professor name fiiled
             elif professor_name != "0" and files.file_exist(user_name + "_intend") == False :
                 # Slot Filling
                 files.file_overwrite_save(user_name,professor_name)
@@ -246,6 +247,7 @@ class Sentence2Vec:
 
         return professor_name
     
+    # Find_extra_name
     def find_extra_name(self, token):
         lastname_dic = {'김','이','박','최','정','강','조','윤','장','임','한',\
                         '오','서','권','황','안','송','홍','류','유','손','차','구','부'}
