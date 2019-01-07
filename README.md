@@ -19,3 +19,4 @@
 ### 예제2
 <img src="./image/desc4.jpeg" width="200">
 
+img.alignright{float:right}
