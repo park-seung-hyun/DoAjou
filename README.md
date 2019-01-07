@@ -8,15 +8,14 @@
 ##### ChoiSoonwon https://github.com/
 
 ### 사용법
-<img src="./image/desc1.jpeg" width="200">
+<img src="./image/desc1.jpeg" width="200" ,float: right;>
 
 ### 시작하기
-<img src="./image/desc2.jpeg" width="200">
+<img src="./image/desc2.jpeg" width="200", float: right;>
 
 ### 예제1
-<img src="./image/desc3.jpeg" width="200">
+<img src="./image/desc3.jpeg" width="200", float: right;>
 
 ### 예제2
-<img src="./image/desc4.jpeg" width="200">
+<img src="./image/desc4.jpeg" width="200",float: right;>
 
-img.alignright{float:right}
