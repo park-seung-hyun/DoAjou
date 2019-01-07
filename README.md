@@ -7,4 +7,9 @@
 ##### KimChiHeon https://github.com/chiheon
 ##### ChoiSoonwon https://github.com/
 
+![사용법](./image/desc1.jpeg)
+![시작하기](./image/desc2.jpeg)
+![예시1](./image/desc1.jpeg)
+![예시2](./image/desc1.jpeg)
+
 
