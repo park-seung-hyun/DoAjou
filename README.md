@@ -12,6 +12,6 @@
 ![image](./image/desc1.jpeg)
 ![image](./image/desc1.jpeg)
 
-img[alt=image] { width: 200px; }
+img[alt=image] { width: 100px; }
 
 
