@@ -7,9 +7,14 @@
 ##### KimChiHeon https://github.com/chiheon
 ##### ChoiSoonwon https://github.com/
 
-![사용법](./image/desc1.jpeg)
-![시작하기](./image/desc2.jpeg)
-![예시1](./image/desc1.jpeg)
-![예시2](./image/desc1.jpeg)
+### 사용법
+<img src="./image/desc1.jpeg" width="200">
 
+### 시작하기
+<img src="./image/desc2.jpeg" width="200">
 
+### 예제1
+<img src="./image/desc3.jpeg" width="200">
+
+### 예제2
+<img src="./image/desc4.jpeg" width="200">
