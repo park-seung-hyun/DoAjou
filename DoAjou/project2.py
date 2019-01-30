@@ -110,6 +110,7 @@ class Sentence2Vec:
         self.similarity = similarity
         
         # Error Handling
+        # Professor name error
         if professor_name == "1" :
             answer = "올바른 교수님의 성함을 입력해주세요. (정보통신대학 교수님 한정)"
             files.file_overwrite_save(user_name,"0") # 0 = Unknown Professor name
@@ -123,7 +124,7 @@ class Sentence2Vec:
             files.file_overwrite_save(user_name,"0") # 0 = Unknown Professor name
             return answer
         
-        # Error Handling
+        # Too small similarity
         if similarity < 0.4 or len(inp) == 1 or intend == self.label_nt[12]:
             
             # Intend existed && Professor name filled
@@ -131,10 +132,10 @@ class Sentence2Vec:
                 intend = files.file_read(user_name + "_intend").replace("\n","")
                 files.file_remove(user_name + "_intend")
             
-            # Only Professor name fiiled
+            # Only Professor name filled
             elif professor_name != "0" and files.file_exist(user_name + "_intend") == False :
                 # Slot Filling
-                files.file_overwrite_save(user_name,professor_name)
+                files.file_overwrite_save(user_name, professor_name)
                 if professor_name == '학과사무실'or professor_name == '소프트웨어중심사업단' :
                         answer = professor_name + "의 어떤 것이 궁금하신가요?\n" + \
                 "Q: 사무실/전화번호/이메일"            
@@ -142,13 +143,15 @@ class Sentence2Vec:
                     answer = professor_name + " 교수님의 어떤 것이 궁금하신가요?\n" + \
                     "Q: 사무실/전화번호/이메일"            
                 return answer
+            
             # No Match
             else:
                 files.file_overwrite_save(user_name,"0") # If out of range delete
                 answer = "범위 밖 질문입니다."
                 files.file_remove(user_name + "_intend")
                 return answer
-            
+        
+        
         answer = self.find_intend(intend,professor_name,user_name)
         
         return answer
@@ -164,7 +167,7 @@ class Sentence2Vec:
             answer = self.data_from_db("기식")
             return answer
         
-        # If no Professor name, see previous history
+        # If no Professor name, see previous history (Only intend filled)
         if professor_name == "0" :
             professor_name = files.file_read(user_name).replace("\n","")
                         
@@ -229,12 +232,12 @@ class Sentence2Vec:
         c = self.prep.replace(c)
 
         # Check Professor name
-        professor_name = "0" # initial number
+        professor_name = "0" # initialize number
         check = 0
         for step, inputs in enumerate(name_dic):
             for i in range(len(c)):
                 if c[i] == inputs:
-                    professor_name = inputs
+                    professor_name = inputs # Found Professor name from name_dic
                     check = check + 1
         c = self.tokenizer.tokenize(inp)            
         if professor_name == "0" :
@@ -243,7 +246,7 @@ class Sentence2Vec:
                     professor_name = "1" # Wrong name
                     break;
         if check > 1 :            
-            professor_name = "2"  # More than two Professor names
+            professor_name = "2"  # More than two Professor names found
 
         return professor_name
     
@@ -259,7 +262,7 @@ class Sentence2Vec:
     
     # Answer
     def answer(self, string):
-        # find answer from database
+        # Find answer from database
         kv = pd.read_csv('key_value.csv', encoding='CP949')
         answer = string      
         for step,value in enumerate(kv.key):    
@@ -270,7 +273,7 @@ class Sentence2Vec:
 
         return answer
     
-    # Data_from_db (Restaurant)
+    # Data_from_db (restaurant)
     def data_from_db(self, rest):
 
         con = sqlite3.connect("meal.db")
